@@ -33,3 +33,4 @@ public class Venta {
     @JoinColumn(name = "id_caja") // FK en PostgreSQL
     private Caja caja;
 }
+//
