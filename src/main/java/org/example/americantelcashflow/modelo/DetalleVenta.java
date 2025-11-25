@@ -2,45 +2,67 @@ package org.example.americantelcashflow.modelo;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.openxava.annotations.Required;
+import org.openxava.annotations.*;
+import org.openxava.model.Identifiable;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "detalle_venta")
-@Getter
-@Setter
-public class DetalleVenta {
+@Getter @Setter
+@View(name="DEFAULT",
+        members =
+                "venta;" +
+                        "producto, cantidad, precioUnitario, subtotal"   // mostramos los 4
+)
+public class DetalleVenta extends Identifiable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // PostgreSQL identity/autoincrement
-    @Column(name = "id_detalle")
-    private Long idDetalle;
+    // -------- RELACIONES --------
 
-    @Required
-    @Column(name = "descripcion_item", length = 200, nullable = false)
-    private String descripcionItem;
-
-    @Required
-    @Column(nullable = false)
-    private int cantidad;
-
-    @Required
-    @Column(name = "precio_unitario", nullable = false)
-    private double precioUnitario;
-
-    @Column(nullable = false)
-    private double subtotal;
-
-    // -------- RELACIÓN MUCHOS ? UNO CON VENTA --------
     @ManyToOne
-    @JoinColumn(name = "id_venta", nullable = false)
+    @Required
     private Venta venta;
 
-    // -------- LÓGICA AUTOMÁTICA --------
-    @PrePersist
-    @PreUpdate
-    public void calcularSubtotal() {
-        this.subtotal = this.cantidad * this.precioUnitario;
+    @ManyToOne
+    @Required
+    @ReferenceView("SoloNombre")          // usa solo el nombre del producto
+    private Producto producto;
+
+    // -------- CAMPOS --------
+
+    @Required
+    private BigDecimal cantidad;
+
+    // ? Ya NO es @Required, solo de lectura
+    @Stereotype("MONEY")
+    @ReadOnly
+    private BigDecimal precioUnitario;
+
+    // -------- LÓGICA --------
+
+    /**
+     * Al seleccionar un producto:
+     * - Copia el precioUnitario del producto al detalle.
+     */
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+
+        if (producto != null) {
+            this.precioUnitario = producto.getPrecioUnitario();
+        } else {
+            this.precioUnitario = null;
+        }
+    }
+
+    /**
+     * Subtotal calculado: cantidad * precioUnitario
+     * Solo lectura, no se guarda en DB, pero se usa en la lista y en la vista.
+     */
+    @ReadOnly
+    @Stereotype("MONEY")
+    @Depends("cantidad, precioUnitario")
+    public BigDecimal getSubtotal() {
+        if (cantidad == null || precioUnitario == null) return BigDecimal.ZERO;
+        return cantidad.multiply(precioUnitario);
     }
 }

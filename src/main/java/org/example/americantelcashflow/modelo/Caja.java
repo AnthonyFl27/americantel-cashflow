@@ -2,56 +2,57 @@ package org.example.americantelcashflow.modelo;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.openxava.annotations.Depends;
+import org.openxava.annotations.ReadOnly;
 import org.openxava.annotations.Required;
+import org.openxava.annotations.Stereotype;
+import org.openxava.annotations.View;
+import org.openxava.model.Identifiable;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Objects;
 
 @Entity
-@Table(name = "caja")
-@Getter
-@Setter
-public class Caja {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)   // PostgreSQL: SERIAL / IDENTITY
-    @Column(name = "id_caja")
-    private Long idCaja;
-
-    @Column(name = "fecha_apertura", nullable = false)
-    private LocalDateTime fechaApertura = LocalDateTime.now();
-
-    @Column(name = "fecha_cierre")
-    private LocalDateTime fechaCierre;
+@Getter @Setter
+@View(members =
+        "fechaApertura, saldoInicial, saldoFinal;" +
+                "descripcion"
+)
+public class Caja extends Identifiable {
 
     @Required
-    @Column(name = "monto_inicial", nullable = false)
-    private double montoInicial;
+    @Stereotype("DATETIME")
+    @Column(name = "fecha_apertura")
+    private Date fechaApertura;
 
-    @Column(name = "monto_final")
-    private double montoFinal;
+    @Required
+    @Stereotype("MONEY")
+    @Column(name = "saldo_inicial")
+    private BigDecimal saldoInicial;
 
-    @Column(name = "saldo_actual")
-    private double saldoActual;
+    /** NO poner en la vista para evitar subpestañas */
+    @OneToMany(mappedBy = "caja")
+    private Collection<Venta> ventas;
 
-    // ---------------- RELACIONES ----------------
+    @ReadOnly
+    @Stereotype("MONEY")
+    @Depends("ventas.total, saldoInicial")
+    public BigDecimal getSaldoFinal() {
+        if (ventas == null) return saldoInicial;
 
-    @OneToMany(mappedBy = "caja", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Venta> ventas = new ArrayList<>();
+        BigDecimal totalVentas = ventas.stream()
+                .map(Venta::getTotal)
+                .filter(Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
 
-    @OneToMany(mappedBy = "caja", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MovimientoCaja> movimientos = new ArrayList<>();
-
-
-    // ---------------- MÉTODOS ÚTILES ----------------
-
-    public void registrarVenta(double monto) {
-        this.saldoActual += monto;
+        return saldoInicial.add(totalVentas);
     }
 
-    public void registrarGasto(double monto) {
-        this.saldoActual -= monto;
-    }
+    @Stereotype("TEXT_AREA")
+    private String descripcion;
 }

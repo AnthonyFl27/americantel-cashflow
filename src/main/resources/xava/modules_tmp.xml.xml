@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<modules xmlns="http://www.openxava.org/xava">
+
+    <module name="Caja">
+        <model>org.example.americantelcashflow.modelo.Caja</model>
+    </module>
+
+    <module name="Venta">
+        <model>org.example.americantelcashflow.modelo.Venta</model>
+    </module>
+
+    <module name="DetalleVenta">
+        <model>org.example.americantelcashflow.modelo.DetalleVenta</model>
+    </module>
+
+</modules>
