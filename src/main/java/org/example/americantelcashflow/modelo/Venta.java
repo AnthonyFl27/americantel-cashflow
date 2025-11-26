@@ -22,16 +22,21 @@ import java.util.Objects;
 )
 public class Venta extends Identifiable {
 
+    // -------- CAMPOS --------
+
+    // ? YA NO lleva @Required
+    @ReadOnly                 // El usuario la ve pero no la puede editar
+    @Stereotype("DATETIME")
+    private Date fecha;
+
     // -------- RELACIONES --------
 
     @ManyToOne
-    @Required
+    @Required                 // La caja sí es obligatoria
     private Caja caja;
 
     @ManyToOne
     private Cliente cliente;
-
-    // -------- CAMPOS --------
 
     @Stereotype("TEXT_AREA")
     private String descripcion;
@@ -54,14 +59,30 @@ public class Venta extends Identifiable {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    // -------- LÓGICA FECHA --------
+
     /**
-     * Fecha de la venta = fecha de apertura de la caja.
-     * Solo lectura, el usuario no la cambia.
+     * Cuando seleccionas una caja:
+     * - Copiamos su fechaApertura a fecha de la venta (si existe).
      */
-    @ReadOnly
-    @Stereotype("DATETIME")
-    @Depends("caja.fechaApertura")
-    public Date getFecha() {
-        return caja != null ? caja.getFechaApertura() : null;
+    public void setCaja(Caja caja) {
+        this.caja = caja;
+        if (caja != null && caja.getFechaApertura() != null) {
+            this.fecha = caja.getFechaApertura();
+        }
+    }
+
+    /**
+     * Antes de insertar en BD nos aseguramos de que fecha tenga valor.
+     */
+    @PrePersist
+    public void onCreate() {
+        if (fecha == null) {
+            if (caja != null && caja.getFechaApertura() != null) {
+                fecha = caja.getFechaApertura();
+            } else {
+                fecha = new Date(); // respaldo: fecha actual
+            }
+        }
     }
 }
