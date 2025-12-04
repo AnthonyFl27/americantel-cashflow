@@ -3,22 +3,45 @@
 <!DOCTYPE controladores SYSTEM "dtds/controladores.dtd">
 
 <controladores>
-    
-    <!-- Variable de entorno: 
-    <var-entorno nombre="americantelcashflow_ANYO_DEFECTO" valor="2015"/>
-    -->
-    
-    <!-- Objeto de sesión:
-    <Objeto nombre="americantelcashflow_anyoActivo" clase="java.lang.Integer" valor="2015" 
-            ambito="global"/>
-    -->
-    
-    <!-- Controlador:
-    <controlador nombre="Profesor">
+
+    <!-- Controlador de Venta con acción para imprimir reporte -->
+    <controlador nombre="Venta">
+        <!-- Hereda todos los botones típicos (Nuevo, Grabar, Borrar, etc.) -->
         <hereda-de controlador="Typical"/>
-        <accion nombre="new" icono="library-plus" atajo-de-teclado="Control N" 
-                clase="acciones.CrearProfesor"/>        
+
+        <accion
+                nombre="imprimirVentas"
+                clase="org.example.americantelcashflow.acciones.ImprimirReporteVentasAction"
+                modo="ALL"/>
     </controlador>
-    -->
-    
+
+    <controlador nombre="Producto">
+        <hereda-de controlador="Typical"/>
+
+        <accion
+                nombre="imprimirProductos"
+                clase="org.example.americantelcashflow.acciones.ImprimirReporteProductosAction"
+                modo="list">
+        </accion>
+    </controlador>
+
+    <controlador nombre="Cliente">
+        <hereda-de controlador="Typical"/>
+
+        <accion
+                nombre="imprimirCliente"
+                clase="org.example.americantelcashflow.acciones.ImprimirReporteClientesAction"
+                modo="list">
+        </accion>
+    </controlador>
+
+    <controlador nombre="Caja">
+        <hereda-de controlador="Typical"/>
+
+        <accion
+                nombre="imprimirCaja"
+                clase="org.example.americantelcashflow.acciones.ImprimirReporteCajaAction"
+                modo="list">
+        </accion>
+    </controlador>
 </controladores>

@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN"
+        "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport
+        name="ReporteVentasAmericantel"
+        language="java"
+        pageWidth="595" pageHeight="842"
+        columnWidth="555"
+        leftMargin="20" rightMargin="20"
+        topMargin="20" bottomMargin="20"
+        whenNoDataType="AllSectionsNoDetail">
+
+    <!-- ========= CONSULTA SQL ========= -->
+    <queryString>
+        <![CDATA[
+SELECT
+    v.id                            AS venta_id,
+    v.fecha                         AS fecha_venta,
+    c.nombre                        AS cliente,
+    p.nombre                        AS producto,
+    dv.cantidad                     AS cantidad,
+    dv.preciounitario               AS precio_unitario,
+    dv.cantidad * dv.preciounitario AS subtotal
+FROM detalleventa dv
+JOIN venta    v ON dv.venta_id    = v.id
+JOIN producto p ON dv.producto_id = p.id
+LEFT JOIN cliente c ON v.cliente_id = c.id
+ORDER BY v.fecha, v.id
+        ]]>
+    </queryString>
+
+    <!-- ========= CAMPOS ========= -->
+    <field name="venta_id" class="java.lang.String"/>
+    <field name="fecha_venta" class="java.sql.Timestamp"/>
+    <field name="cliente" class="java.lang.String"/>
+    <field name="producto" class="java.lang.String"/>
+    <field name="cantidad" class="java.math.BigDecimal"/>
+    <field name="precio_unitario" class="java.math.BigDecimal"/>
+    <field name="subtotal" class="java.math.BigDecimal"/>
+
+    <!-- ========= BACKGROUND (vacío) ========= -->
+    <background>
+        <band height="1"/>
+    </background>
+
+    <!-- ========= TÍTULO: LOGO + FECHA ACTUAL ========= -->
+    <title>
+        <band height="90">
+
+            <!-- Logo -->
+            <image>
+                <reportElement x="250" y="5" width="63" height="70"/>
+                <!-- Ruta relativa en el classpath: /images/logo_americantel.png -->
+                <imageExpression class="java.lang.String">
+                    <![CDATA["/images/logo_americantel.png"]]>
+                </imageExpression>
+            </image>
+
+            <!-- Fecha/hora de generación del reporte -->
+            <textField pattern="dd/MM/yyyy HH:mm">
+                <reportElement x="460" y="0" width="110" height="20"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression class="java.util.Date">
+                    <![CDATA[new java.util.Date()]]>
+                </textFieldExpression>
+            </textField>
+
+        </band>
+    </title>
+
+    <!-- ========= ENCABEZADO DE PÁGINA: TÍTULO ========= -->
+    <pageHeader>
+        <band height="30">
+            <staticText>
+                <reportElement x="140" y="5" width="280" height="20"/>
+                <textElement textAlignment="Center">
+                    <font size="16" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Americantel – Reporte de Ventas]]></text>
+            </staticText>
+        </band>
+    </pageHeader>
+
+    <!-- ========= ENCABEZADO DE COLUMNAS ========= -->
+    <columnHeader>
+        <band height="25">
+
+            <!-- Fecha -->
+            <staticText>
+                <reportElement x="0" y="5" width="90" height="15"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Fecha]]></text>
+            </staticText>
+
+            <!-- Cliente -->
+            <staticText>
+                <reportElement x="100" y="5" width="100" height="15"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Cliente]]></text>
+            </staticText>
+
+            <!-- Producto -->
+            <staticText>
+                <reportElement x="210" y="5" width="100" height="15"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Producto]]></text>
+            </staticText>
+
+            <!-- Precio unitario -->
+            <staticText>
+                <reportElement x="320" y="5" width="80" height="15"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Precio unitario]]></text>
+            </staticText>
+
+            <!-- Cantidad -->
+            <staticText>
+                <reportElement x="410" y="5" width="60" height="15"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Cantidad]]></text>
+            </staticText>
+
+            <!-- Subtotal -->
+            <staticText>
+                <reportElement x="480" y="5" width="70" height="15"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Subtotal]]></text>
+            </staticText>
+
+        </band>
+    </columnHeader>
+
+    <!-- ========= DETALLE (CADA FILA DE VENTA) ========= -->
+    <detail>
+        <band height="20">
+
+            <!-- Fecha venta (más ancho para que no se corte) -->
+            <textField pattern="dd/MM/yyyy HH:mm">
+                <reportElement x="0" y="0" width="120" height="15"/>
+                <textFieldExpression class="java.sql.Timestamp">
+                    <![CDATA[$F{fecha_venta}]]>
+                </textFieldExpression>
+            </textField>
+
+            <!-- Cliente -->
+            <textField>
+                <reportElement x="100" y="0" width="100" height="15"/>
+                <textFieldExpression class="java.lang.String">
+                    <![CDATA[$F{cliente}]]>
+                </textFieldExpression>
+            </textField>
+
+            <!-- Producto -->
+            <textField>
+                <reportElement x="210" y="0" width="100" height="15"/>
+                <textFieldExpression class="java.lang.String">
+                    <![CDATA[$F{producto}]]>
+                </textFieldExpression>
+            </textField>
+
+            <!-- Precio unitario -->
+            <textField pattern="¤#,##0.##;¤-#,##0.##">
+                <reportElement x="320" y="0" width="80" height="15"/>
+                <textFieldExpression class="java.math.BigDecimal">
+                    <![CDATA[$F{precio_unitario}]]>
+                </textFieldExpression>
+            </textField>
+
+            <!-- Cantidad -->
+            <textField pattern="#,##0.##">
+                <reportElement x="410" y="0" width="60" height="15"/>
+                <textFieldExpression class="java.math.BigDecimal">
+                    <![CDATA[$F{cantidad}]]>
+                </textFieldExpression>
+            </textField>
+
+            <!-- Subtotal (ahora con símbolo de moneda) -->
+            <textField pattern="¤#,##0.##;¤-#,##0.##">
+                <reportElement x="480" y="0" width="70" height="15"/>
+                <textFieldExpression class="java.math.BigDecimal">
+                    <![CDATA[$F{subtotal}]]>
+                </textFieldExpression>
+            </textField>
+
+        </band>
+    </detail>
+
+    <!-- ========= PIE DE PÁGINA ========= -->
+    <pageFooter>
+        <band height="30">
+            <!-- Número de página -->
+            <textField>
+                <reportElement x="480" y="5" width="75" height="20"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression class="java.lang.Integer">
+                    <![CDATA[$V{PAGE_NUMBER}]]>
+                </textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+    <!-- Summary vacío por ahora -->
+    <summary>
+        <band height="10"/>
+    </summary>
+
+</jasperReport>

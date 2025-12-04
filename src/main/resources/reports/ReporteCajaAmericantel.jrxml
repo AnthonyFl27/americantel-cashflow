@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN"
+        "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport
+        name="ReporteVentasAmericantel"
+        language="java"
+        pageWidth="595" pageHeight="842"
+        columnWidth="555"
+        leftMargin="20" rightMargin="20"
+        topMargin="20" bottomMargin="20"
+        whenNoDataType="AllSectionsNoDetail">
+
+    <!-- ========= CONSULTA SQL ========= -->
+    <queryString>
+        <![CDATA[
+SELECT
+    c.fechaapertura AS fecha_apertura,
+    c.saldoinicial  AS saldo_inicial,
+    c.descripcion   AS descripcion
+FROM caja c
+ORDER BY c.fechaapertura
+        ]]>
+    </queryString>
+
+    <!-- ========= CAMPOS ========= -->
+    <field name="fecha_apertura" class="java.sql.Timestamp"/>
+    <field name="saldo_inicial"  class="java.math.BigDecimal"/>
+    <field name="descripcion"    class="java.lang.String"/>
+
+    <!-- ========= BACKGROUND (vacío) ========= -->
+    <background>
+        <band height="1"/>
+    </background>
+
+    <!-- ========= TÍTULO: LOGO + FECHA ACTUAL ========= -->
+    <title>
+        <band height="90">
+
+            <!-- Logo -->
+            <image>
+                <reportElement x="250" y="10" width="63" height="70"/>
+                <imageExpression class="java.lang.String">
+                    <![CDATA["/images/logo_americantel.png"]]>
+                </imageExpression>
+            </image>
+
+            <!-- Fecha/hora de generación del reporte -->
+            <textField pattern="dd/MM/yyyy HH:mm">
+                <reportElement x="460" y="0" width="110" height="20"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression class="java.util.Date">
+                    <![CDATA[new java.util.Date()]]>
+                </textFieldExpression>
+            </textField>
+
+        </band>
+    </title>
+
+    <!-- ========= ENCABEZADO DE PÁGINA: TÍTULO ========= -->
+    <pageHeader>
+        <band height="30">
+            <staticText>
+                <reportElement x="120" y="5" width="320" height="20"/>
+                <textElement textAlignment="Center">
+                    <font size="16" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Americantel – Reporte de Caja]]></text>
+            </staticText>
+        </band>
+    </pageHeader>
+
+    <!-- ========= ENCABEZADO DE COLUMNAS ========= -->
+    <columnHeader>
+        <band height="20">
+
+            <!-- Fecha de apertura -->
+            <staticText>
+                <reportElement x="80" y="2" width="120" height="15"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Fecha de apertura]]></text>
+            </staticText>
+
+            <!-- Saldo inicial -->
+            <staticText>
+                <reportElement x="220" y="2" width="100" height="15"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Saldo inicial]]></text>
+            </staticText>
+
+            <!-- Descripción -->
+            <staticText>
+                <reportElement x="340" y="2" width="180" height="15"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Descripción]]></text>
+            </staticText>
+
+        </band>
+    </columnHeader>
+
+    <!-- ========= DETALLE (CADA REGISTRO DE CAJA) ========= -->
+    <detail>
+        <!-- Sin splitType (modo clásico). La descripción sí se estira. -->
+        <band height="18">
+
+            <!-- Fecha de apertura -->
+            <textField pattern="dd/MM/yyyy HH:mm">
+                <reportElement x="80" y="0" width="120" height="15"/>
+                <textFieldExpression class="java.sql.Timestamp">
+                    <![CDATA[$F{fecha_apertura}]]>
+                </textFieldExpression>
+            </textField>
+
+            <!-- Saldo inicial -->
+            <textField pattern="¤#,##0.##;¤-#,##0.##">
+                <reportElement x="220" y="0" width="100" height="15"/>
+                <textFieldExpression class="java.math.BigDecimal">
+                    <![CDATA[$F{saldo_inicial}]]>
+                </textFieldExpression>
+            </textField>
+
+            <!-- Descripción (se estira si es larga) -->
+            <textField isStretchWithOverflow="true">
+                <reportElement x="340" y="0" width="180" height="15" positionType="Float"/>
+                <textElement>
+                    <font size="11"/>
+                </textElement>
+                <textFieldExpression class="java.lang.String">
+                    <![CDATA[$F{descripcion}]]>
+                </textFieldExpression>
+            </textField>
+
+        </band>
+    </detail>
+
+    <!-- ========= PIE DE PÁGINA ========= -->
+    <pageFooter>
+        <band height="30">
+            <!-- Número de página -->
+            <textField>
+                <reportElement x="480" y="5" width="75" height="20"/>
+                <textElement textAlignment="Right"/>
+                <textFieldExpression class="java.lang.Integer">
+                    <![CDATA[$V{PAGE_NUMBER}]]>
+                </textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+
+    <!-- Summary vacío por ahora -->
+    <summary>
+        <band height="10"/>
+    </summary>
+
+</jasperReport>
