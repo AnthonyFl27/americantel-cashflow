@@ -65,7 +65,7 @@ ORDER BY c.fechaapertura]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="18" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField pattern="dd/MM/yyyy HH:mm">
 				<reportElement x="80" y="0" width="120" height="15" uuid="3035593c-23cc-4fc5-b9ae-fa2f07b8b145"/>
 				<textFieldExpression><![CDATA[$F{fecha_apertura}]]></textFieldExpression>

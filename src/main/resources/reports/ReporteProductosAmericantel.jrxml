@@ -74,9 +74,9 @@ ORDER BY p.nombre;]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="40" splitType="Stretch">
 			<textField>
-				<reportElement x="83" y="0" width="100" height="15" uuid="788ea1fe-43c7-435c-bfc6-7b5fdfce55d5"/>
+				<reportElement x="83" y="0" width="100" height="40" uuid="788ea1fe-43c7-435c-bfc6-7b5fdfce55d5"/>
 				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
 			</textField>
 			<textField textAdjust="StretchHeight">

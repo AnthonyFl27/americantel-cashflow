@@ -66,7 +66,7 @@ ORDER BY c.nombre]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="18" splitType="Stretch">
+		<band height="30" splitType="Stretch">
 			<textField textAdjust="StretchHeight">
 				<reportElement positionType="Float" x="60" y="0" width="150" height="15" uuid="c14b275c-a1b3-44f7-9d93-fad3afea0db8"/>
 				<textElement>
