@@ -17,8 +17,7 @@ FROM detalleventa dv
 JOIN venta    v ON dv.venta_id    = v.id
 JOIN producto p ON dv.producto_id = p.id
 LEFT JOIN cliente c ON v.cliente_id = c.id
-ORDER BY v.fecha, v.id;
-]]>
+ORDER BY v.fecha, v.id;]]>
 	</queryString>
 	<field name="venta_id" class="java.lang.String">
 		<property name="com.jaspersoft.studio.field.name" value="venta_id"/>
@@ -142,7 +141,7 @@ ORDER BY v.fecha, v.id;
 				<textFieldExpression><![CDATA[$F{fecha_venta}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="100" y="0" width="100" height="15" uuid="6597a72e-1210-4c9d-b6d3-2ecd0c031cf4"/>
+				<reportElement x="100" y="0" width="100" height="46" uuid="6597a72e-1210-4c9d-b6d3-2ecd0c031cf4"/>
 				<textFieldExpression><![CDATA[$F{cliente}]]></textFieldExpression>
 			</textField>
 			<textField>
