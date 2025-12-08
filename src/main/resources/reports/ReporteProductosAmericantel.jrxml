@@ -1,159 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN"
-        "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport
-        name="ReporteVentasAmericantel"
-        language="java"
-        pageWidth="595" pageHeight="842"
-        columnWidth="555"
-        leftMargin="20" rightMargin="20"
-        topMargin="20" bottomMargin="20"
-        whenNoDataType="AllSectionsNoDetail">
-
-    <!-- ========= CONSULTA SQL ========= -->
-    <queryString>
-        <![CDATA[
-SELECT
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteVentasAmericantel" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a04d06c9-0fae-4bbf-91cc-6e5a9f6b441b">
+	<queryString>
+		<![CDATA[SELECT
     p.id             AS producto_id,
     p.nombre         AS nombre,
     p.descripcion    AS descripcion,
     p.preciounitario AS precio_unitario
 FROM producto p
-ORDER BY p.nombre;
-        ]]>
-    </queryString>
-
-    <!-- ========= CAMPOS ========= -->
-    <field name="producto_id"     class="java.lang.String"/>
-    <field name="nombre"          class="java.lang.String"/>
-    <field name="descripcion"     class="java.lang.String"/>
-    <field name="precio_unitario" class="java.math.BigDecimal"/>
-
-    <!-- ========= BACKGROUND (vacío) ========= -->
-    <background>
-        <band height="1"/>
-    </background>
-
-    <!-- ========= TÍTULO: LOGO + FECHA ACTUAL ========= -->
-    <title>
-        <band height="90">
-
-            <!-- Logo -->
-            <image>
-                <reportElement x="240" y="10" width="63" height="70"/>
-                <imageExpression class="java.lang.String">
-                    <![CDATA["/images/logo_americantel.png"]]>
-                </imageExpression>
-            </image>
-
-            <!-- Fecha/hora de generación del reporte -->
-            <textField pattern="dd/MM/yyyy HH:mm">
-                <reportElement x="460" y="0" width="110" height="20"/>
-                <textElement textAlignment="Right"/>
-                <textFieldExpression class="java.util.Date">
-                    <![CDATA[new java.util.Date()]]>
-                </textFieldExpression>
-            </textField>
-
-        </band>
-    </title>
-
-    <!-- ========= ENCABEZADO DE PÁGINA: TÍTULO ========= -->
-    <pageHeader>
-        <band height="30">
-            <staticText>
-                <reportElement x="120" y="5" width="320" height="20"/>
-                <textElement textAlignment="Center">
-                    <font size="16" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Americantel – Reporte de Productos]]></text>
-            </staticText>
-        </band>
-    </pageHeader>
-
-    <!-- ========= ENCABEZADO DE COLUMNAS ========= -->
-    <columnHeader>
-        <band height="20">
-
-            <!-- Nombre -->
-            <staticText>
-                <reportElement x="83" y="2" width="100" height="15"/>
-                <textElement>
-                    <font isBold="true"/>
-                </textElement>
-                <text><![CDATA[Nombre]]></text>
-            </staticText>
-
-            <!-- Descripción (más ancha) -->
-            <staticText>
-                <reportElement x="213" y="2" width="210" height="15"/>
-                <textElement>
-                    <font isBold="true"/>
-                </textElement>
-                <text><![CDATA[Descripción]]></text>
-            </staticText>
-
-            <!-- Precio unitario -->
-            <staticText>
-                <reportElement x="430" y="2" width="100" height="15"/>
-                <textElement>
-                    <font isBold="true"/>
-                </textElement>
-                <text><![CDATA[Precio unitario]]></text>
-            </staticText>
-
-        </band>
-    </columnHeader>
-
-    <!-- ========= DETALLE (CADA PRODUCTO) ========= -->
-    <detail>
-        <!-- banda baja; crecerá sola cuando la descripción sea larga -->
-        <band height="20">
-
-            <!-- Nombre -->
-            <textField>
-                <reportElement x="83" y="0" width="100" height="15"/>
-                <textFieldExpression class="java.lang.String">
-                    <![CDATA[$F{nombre}]]>
-                </textFieldExpression>
-            </textField>
-
-            <!-- Descripción multilínea, sin cortar texto -->
-            <textField isStretchWithOverflow="true">
-                <reportElement x="213" y="0" width="210" height="15"/>
-                <textFieldExpression class="java.lang.String">
-                    <![CDATA[$F{descripcion}]]>
-                </textFieldExpression>
-            </textField>
-
-            <!-- Precio unitario -->
-            <textField pattern="¤#,##0.##;¤-#,##0.##">
-                <reportElement x="430" y="0" width="100" height="15"/>
-                <textFieldExpression class="java.math.BigDecimal">
-                    <![CDATA[$F{precio_unitario}]]>
-                </textFieldExpression>
-            </textField>
-
-        </band>
-    </detail>
-
-    <!-- ========= PIE DE PÁGINA ========= -->
-    <pageFooter>
-        <band height="30">
-            <textField>
-                <reportElement x="480" y="5" width="75" height="20"/>
-                <textElement textAlignment="Right"/>
-                <textFieldExpression class="java.lang.Integer">
-                    <![CDATA[$V{PAGE_NUMBER}]]>
-                </textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
-
-    <!-- Summary vacío -->
-    <summary>
-        <band height="10"/>
-    </summary>
-
+ORDER BY p.nombre;]]>
+	</queryString>
+	<field name="producto_id" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="precio_unitario" class="java.math.BigDecimal"/>
+	<background>
+		<band height="1" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="90" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="460" y="0" width="110" height="20" uuid="fd958776-25f2-467a-9aaa-228d4d9a266d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="252" y="20" width="50" height="50" uuid="23fbb616-1f3a-4707-a0fd-124e31fe01c3"/>
+				<imageExpression><![CDATA["/images/logo_americantel.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="38" splitType="Stretch">
+			<staticText>
+				<reportElement x="120" y="5" width="380" height="20" uuid="1d1bc329-5ab9-42ba-b99c-c3504b9c75da"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Americantel – Reporte de Productos]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="166" y="5" width="222" height="17" uuid="9d369960-5f46-4129-ae47-f07f455bddc0"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Americantel - Reporte de Productos]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="83" y="2" width="100" height="15" uuid="c4426471-a57e-48ce-9926-942699c1cc20"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="213" y="2" width="210" height="15" uuid="570d5f01-c202-4f35-95c4-12a322950e1b"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Descripción]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="430" y="2" width="100" height="15" uuid="b220195a-a6c0-4a51-a877-d37f7eae232a"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Precio unitario]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="83" y="0" width="100" height="15" uuid="788ea1fe-43c7-435c-bfc6-7b5fdfce55d5"/>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement x="213" y="0" width="210" height="15" uuid="ed5f783d-0640-41a6-b726-1a554a92d9a9"/>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.##;¤-#,##0.##">
+				<reportElement x="430" y="0" width="100" height="15" uuid="9651dc69-a398-480c-ab98-fcbfa4b84718"/>
+				<textFieldExpression><![CDATA[$F{precio_unitario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="480" y="5" width="75" height="20" uuid="8b6e9fa1-fbec-4f12-ae0f-550a90451a8d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="10" splitType="Stretch"/>
+	</summary>
 </jasperReport>

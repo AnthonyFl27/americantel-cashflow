@@ -1,249 +1,105 @@
-<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
-<jasperReport name="ReporteVentasAmericantel" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="df028489-84df-4f4b-9670-107fd5bc69e8">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="PostgreSQL_Americantel"/>
-	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
-	<query language="sql"><![CDATA[SELECT
-    c.id         AS cliente_id,
-    c.nombre     AS nombre,
-    c.telefono   AS telefono,
-    c.email      AS email
-FROM cliente c
-ORDER BY c.nombre]]></query>
-	<field name="cliente_id" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="cliente_id"/>
-		<property name="com.jaspersoft.studio.field.label" value="cliente_id"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
-	</field>
-	<field name="nombre" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="nombre"/>
-		<property name="com.jaspersoft.studio.field.label" value="nombre"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
-	</field>
-	<field name="telefono" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="telefono"/>
-		<property name="com.jaspersoft.studio.field.label" value="telefono"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
-	</field>
-	<field name="email" class="java.lang.String">
-		<property name="com.jaspersoft.studio.field.name" value="email"/>
-		<property name="com.jaspersoft.studio.field.label" value="email"/>
-		<property name="com.jaspersoft.studio.field.tree.path" value="cliente"/>
-	</field>
-	<background splitType="Stretch"/>
-	<title height="93" splitType="Stretch">
-		<element kind="image" uuid="733605c9-fb7b-4c29-9c68-2f6eb5ee5499" x="250" y="11" width="63" height="70">
-			<expression><![CDATA["/images/logo_americantel.png"]]></expression>
-		</element>
-		<element kind="textField" uuid="783bfc69-cd23-4a74-ae25-5de377290698" x="472" y="0" width="100" height="30" pattern="dd/MM/yyyy HH:mm">
-			<expression><![CDATA[new java.util.Date()]]></expression>
-		</element>
-	</title>
-	<pageHeader height="46" splitType="Stretch">
-		<element kind="staticText" uuid="693a5901-a0d1-497d-af3e-5a74c32765d2" x="152" y="9" width="294" height="30" fontSize="16.0" bold="true">
-			<text><![CDATA[Americantel – Reporte de Clientes]]></text>
-		</element>
-	</pageHeader>
-	<columnHeader height="37" splitType="Stretch">
-		<element kind="staticText" uuid="efff1f2a-5419-4035-bd82-d53c0b2a4960" x="120" y="10" width="50" height="14" bold="true" italic="false">
-			<text><![CDATA[Nombre]]></text>
-		</element>
-		<element kind="staticText" uuid="8d3819bd-33aa-41fe-bbc9-5687c1845517" x="250" y="10" width="50" height="14" bold="true" italic="false">
-			<text><![CDATA[Teléfono]]></text>
-		</element>
-		<element kind="staticText" uuid="527e78f0-957f-4e5f-a23b-620e87da947d" x="346" y="10" width="50" height="14" bold="true" italic="false">
-			<text><![CDATA[Correo electrónico]]></text>
-		</element>
-	</columnHeader>
-	<detail>
-		<band height="40" splitType="Stretch">
-			<element kind="textField" uuid="e78a1b8b-090e-4298-8454-7f219e9a631e" x="120" y="0" width="100" height="30">
-				<expression><![CDATA[$F{nombre}]]></expression>
-				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="9689ebe0-cf17-4ffa-8402-fa4f7dc01931"/>
-			</element>
-			<element kind="textField" uuid="f5425221-056c-4b3b-85f2-397629803ac7" x="250" y="0" width="100" height="30">
-				<expression><![CDATA[$F{telefono}]]></expression>
-				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5aa11a15-4498-48e7-b1e2-0bbf4c2675c5"/>
-			</element>
-			<element kind="textField" uuid="a818eb56-b430-4286-b786-ee2ce6809226" x="346" y="0" width="100" height="30">
-				<expression><![CDATA[$F{email}]]></expression>
-				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="2ef7031a-80a9-4d13-907b-7ecaca779577"/>
-			</element>
-		</band>
-	</detail>
-	<columnFooter height="45" splitType="Stretch"/>
-	<pageFooter height="59" splitType="Stretch">
-		<element kind="textField" uuid="c77b02e7-e02f-4701-a232-0d56619eeaae" x="530" y="20" width="100" height="30">
-			<expression><![CDATA[$V{PAGE_NUMBER}]]></expression>
-		</element>
-	</pageFooter>
-	<summary height="42" splitType="Stretch"/>
-</jasperRepor<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN"
-        "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
-
-<jasperReport
-        name="ReporteVentasAmericantel"
-        language="java"
-        pageWidth="595" pageHeight="842"
-        columnWidth="555"
-        leftMargin="20" rightMargin="20"
-        topMargin="20" bottomMargin="20"
-        whenNoDataType="AllSectionsNoDetail">
-
-    <!-- ========= CONSULTA SQL ========= -->
-    <queryString>
-        <![CDATA[
-SELECT
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.21.2.final using JasperReports Library version 6.21.2-8434a0bd7c3bbc37cbf916f2968d35e4b165821a  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReporteClientesAmericantel" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="7470249d-df9f-43f9-8f89-05d4f1f4de84">
+	<queryString>
+		<![CDATA[SELECT
     c.id       AS cliente_id,
     c.nombre   AS nombre,
     c.telefono AS telefono,
     c.email    AS email
 FROM cliente c
-ORDER BY c.nombre
-        ]]>
-    </queryString>
-
-    <!-- ========= CAMPOS ========= -->
-    <field name="cliente_id" class="java.lang.String"/>
-    <field name="nombre"     class="java.lang.String"/>
-    <field name="telefono"   class="java.lang.String"/>
-    <field name="email"      class="java.lang.String"/>
-
-    <!-- ========= BACKGROUND (vacío) ========= -->
-    <background>
-        <band height="1"/>
-    </background>
-
-    <!-- ========= TÍTULO: LOGO + FECHA ACTUAL ========= -->
-    <title>
-        <band height="90">
-
-            <!-- Logo -->
-            <image>
-                <reportElement x="250" y="10" width="63" height="70"/>
-                <!-- Ruta relativa en el classpath: /images/logo_americantel.png -->
-                <imageExpression class="java.lang.String">
-                    <![CDATA["/images/logo_americantel.png"]]>
-                </imageExpression>
-            </image>
-
-            <!-- Fecha/hora de generación del reporte -->
-            <textField pattern="dd/MM/yyyy HH:mm">
-                <reportElement x="460" y="0" width="110" height="20"/>
-                <textElement textAlignment="Right"/>
-                <textFieldExpression class="java.util.Date">
-                    <![CDATA[new java.util.Date()]]>
-                </textFieldExpression>
-            </textField>
-
-        </band>
-    </title>
-
-    <!-- ========= ENCABEZADO DE PÁGINA: TÍTULO ========= -->
-    <pageHeader>
-        <band height="30">
-            <staticText>
-                <reportElement x="120" y="5" width="320" height="20"/>
-                <textElement textAlignment="Center">
-                    <font size="16" isBold="true"/>
-                </textElement>
-                <text><![CDATA[Americantel – Reporte de Clientes]]></text>
-            </staticText>
-        </band>
-    </pageHeader>
-
-    <!-- ========= ENCABEZADO DE COLUMNAS ========= -->
-    <columnHeader>
-        <band height="20">
-
-            <!-- Nombre -->
-            <staticText>
-                <reportElement x="60" y="2" width="150" height="15"/>
-                <textElement>
-                    <font isBold="true"/>
-                </textElement>
-                <text><![CDATA[Nombre]]></text>
-            </staticText>
-
-            <!-- Teléfono -->
-            <staticText>
-                <reportElement x="230" y="2" width="100" height="15"/>
-                <textElement>
-                    <font isBold="true"/>
-                </textElement>
-                <text><![CDATA[Teléfono]]></text>
-            </staticText>
-
-            <!-- Correo electrónico -->
-            <staticText>
-                <reportElement x="340" y="2" width="180" height="15"/>
-                <textElement>
-                    <font isBold="true"/>
-                </textElement>
-                <text><![CDATA[Correo electrónico]]></text>
-            </staticText>
-
-        </band>
-    </columnHeader>
-
-    <!-- ========= DETALLE (CADA CLIENTE) ========= -->
-    <detail>
-        <!-- Altura base; si nombre/email son largos el band se estira -->
-        <band height="18">
-
-            <!-- Nombre (se estira si es largo) -->
-            <textField isStretchWithOverflow="true">
-                <reportElement x="60" y="0" width="150" height="15" positionType="Float"/>
-                <textElement>
-                    <font size="11"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String">
-                    <![CDATA[$F{nombre}]]>
-                </textFieldExpression>
-            </textField>
-
-            <!-- Teléfono -->
-            <textField>
-                <reportElement x="230" y="0" width="100" height="15"/>
-                <textElement>
-                    <font size="11"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String">
-                    <![CDATA[$F{telefono}]]>
-                </textFieldExpression>
-            </textField>
-
-            <!-- Email (también se estira si es largo) -->
-            <textField isStretchWithOverflow="true">
-                <reportElement x="340" y="0" width="180" height="15" positionType="Float"/>
-                <textElement>
-                    <font size="11"/>
-                </textElement>
-                <textFieldExpression class="java.lang.String">
-                    <![CDATA[$F{email}]]>
-                </textFieldExpression>
-            </textField>
-
-        </band>
-    </detail>
-
-    <!-- ========= PIE DE PÁGINA ========= -->
-    <pageFooter>
-        <band height="30">
-            <!-- Número de página -->
-            <textField>
-                <reportElement x="480" y="5" width="75" height="20"/>
-                <textElement textAlignment="Right"/>
-                <textFieldExpression class="java.lang.Integer">
-                    <![CDATA[$V{PAGE_NUMBER}]]>
-                </textFieldExpression>
-            </textField>
-        </band>
-    </pageFooter>
-
-    <!-- Summary vacío por ahora -->
-    <summary>
-        <band height="10"/>
-    </summary>
-
+ORDER BY c.nombre]]>
+	</queryString>
+	<field name="cliente_id" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="email" class="java.lang.String"/>
+	<background>
+		<band height="1" splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="124" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy HH:mm">
+				<reportElement x="460" y="0" width="110" height="20" uuid="4adb82d1-e61d-4c04-85ec-2ee3b8919d58"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="171" y="90" width="218" height="20" uuid="7e649787-9f96-4f61-8a15-9186ce5b7d70"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Americantel - Reporte de Clientes]]></text>
+			</staticText>
+			<image>
+				<reportElement x="255" y="20" width="50" height="49" uuid="4386e75d-da23-4294-ab9b-656d672b0536"/>
+				<imageExpression><![CDATA["/images/logo_americantel.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="1" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement x="60" y="2" width="150" height="15" uuid="19efb3e7-be56-4616-b157-7199eee3cc8f"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="2" width="100" height="15" uuid="b62d0bee-4ce7-44e9-8bcf-9330b632b630"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Teléfono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="2" width="180" height="15" uuid="379a878c-d302-4e49-a3d6-595766a2eb9c"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Correo electrónico]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="18" splitType="Stretch">
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="60" y="0" width="150" height="15" uuid="c14b275c-a1b3-44f7-9d93-fad3afea0db8"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="0" width="100" height="15" uuid="616db18a-a465-432c-a043-2d11dd1d639a"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement positionType="Float" x="340" y="0" width="180" height="15" uuid="c67edb24-9632-4e00-983f-88e16ea7e02d"/>
+				<textElement>
+					<font size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="480" y="5" width="75" height="20" uuid="01464c40-d2a3-4f18-8ba6-a58a283eb0ca"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="10" splitType="Stretch"/>
+	</summary>
 </jasperReport>
